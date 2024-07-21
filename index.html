@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weeks To Live</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <input type="date" id="dateinp" value="2000-01-01">
+    <div class="cont" id="cont">
+    </div>
+
+    <script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        var dateinp = document.getElementById("dateinp");
+        dateinp.addEventListener("change", async () => {
+            dateinp.style.display = "none";
+
+            var initial = new Date(dateinp.value);
+            var bday = new Date(initial);
+            var today = new Date();
+            var initial100 = new Date();
+            initial100.setFullYear(initial.getFullYear() + 80)
+
+            var cont = document.getElementById("cont");
+
+            console.log(bday.getDate(), today.getDate())
+
+            var cnt = 0;
+
+            while (bday.getTime() < today.getTime()) {
+                bday.setDate(bday.getDate() + 7);
+                var cube = document.createElement("div");
+                cube.classList.add("cube");
+                cube.classList.add("spent");
+                cont.appendChild(cube);
+                if (cnt % 20 == 0) {
+                    await sleep(1);
+                }
+                cnt += 1;
+            }
+
+            while (bday.getTime() < initial100.getTime()) {
+                bday.setDate(bday.getDate() + 7);
+                var cube = document.createElement("div");
+                cube.classList.add("cube");
+                cont.appendChild(cube);
+                if (cnt % 20 == 0) {
+                    await sleep(1);
+                }
+                cnt += 1;
+            }
+        })
+    </script>
+</body>
+
+</html>
